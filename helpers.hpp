@@ -7,13 +7,13 @@
 #ifndef STATEFULFAAS_HELPERS_H
 #define STATEFULFAAS_HELPERS_H
 
-std::vector<string> split(const string& s) {
-    std::vector<string> elems;
+std::vector<std::string> split(const std::string& s) {
+    std::vector<std::string> elems;
 
-    regex re("\\s+");
+    std::regex re("\\s+");
 
-    sregex_token_iterator iter(s.begin(), s.end(), re, -1);
-    sregex_token_iterator end;
+    std::sregex_token_iterator iter(s.begin(), s.end(), re, -1);
+    std::sregex_token_iterator end;
 
     while (iter != end) {
         if (iter->length()) {

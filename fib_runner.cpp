@@ -3,6 +3,7 @@
 #include <string.h>
 #include <inttypes.h>
 #include <zmq.hpp>
+#include <string>
 
 #include "BS_thread_pool.hpp"
 #include "wasm.h"
@@ -425,7 +426,7 @@ int main(){
         if(command.size() > 0){
 
             std::cout << "Message from the client is - " << command.to_string() << std::endl;
-            std::vector<string> vec = split(command.to_string());
+            std::vector<std::string> vec = split(command.to_string());
             for(unsigned int i = 0; i < vec.size(); i++)
             {
                 std::cout << vec[i] << " " << std::endl;

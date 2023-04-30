@@ -3,7 +3,6 @@
 #include <string.h>
 #include <inttypes.h>
 #include <zmq.hpp>
-#include <vector>
 
 #include "BS_thread_pool.hpp"
 #include "wasm.h"

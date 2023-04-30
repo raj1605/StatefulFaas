@@ -2,6 +2,7 @@
 // Created by Monish on 29-04-2023.
 //
 #include <regex>
+#include <vector>
 
 #ifndef STATEFULFAAS_HELPERS_H
 #define STATEFULFAAS_HELPERS_H

@@ -7,6 +7,7 @@
 #include "BS_thread_pool.hpp"
 #include "wasm.h"
 #include "host_operations.h"
+#include "helpers.h"
 #define own
 
 using namespace zmq;
@@ -424,6 +425,11 @@ int main(){
         if(command.size() > 0){
 
             std::cout << "Message from the client is - " << command.to_string() << std::endl;
+            vector<string> vec = split(command.to_string());
+            for(unsigned int i = 0; i < vec.size(); i++)
+            {
+                std::cout << vec[i] << " " << std::endl;
+            }
             zmq::message_t msg("hello world!", 12);
             std::future<void> secondary_future = pool.submit(run_function, ids);
             ids++;

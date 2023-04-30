@@ -7,7 +7,7 @@
 #include "BS_thread_pool.hpp"
 #include "wasm.h"
 #include "host_operations.h"
-#include "helpers.h"
+#include "helpers.hpp"
 #define own
 
 using namespace zmq;

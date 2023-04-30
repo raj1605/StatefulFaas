@@ -48,6 +48,7 @@ int main(int argc, const char* argv[]) {
         printf("> Error loading module!\n");
         return 1;
     }
+
     fseek(file, 0L, SEEK_END);
     size_t file_size = ftell(file);
     fseek(file, 0L, SEEK_SET);
@@ -94,7 +95,6 @@ int main(int argc, const char* argv[]) {
         cout << "get import result failed \n";
     }
 
-
     wasm_extern_t* externs[] = {
             wasm_func_as_extern(host_func),
             wasi_import_obj.data[0]
@@ -111,8 +111,6 @@ int main(int argc, const char* argv[]) {
 //    imports.data[0] = wasm_func_as_extern(host_func);
 //    imports.data[1] = wasi_import_obj.data[0];
 
-
-
     own wasm_instance_t* instance =
             wasm_instance_new(store, module, &imports, NULL);
 
@@ -127,7 +125,6 @@ int main(int argc, const char* argv[]) {
         print_wasmer_error();
         return 1;
     }
-
 
     // Extract export.
     printf("Extracting export...\n");

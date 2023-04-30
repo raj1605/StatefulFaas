@@ -26,7 +26,7 @@ extern "C" {
 	void chain_call_test() __attribute__((used));
 	void chain_call_test(){
 		const char* str = "monish raj raghu from inside the wasm module";
-		chain_call();
+		chain_call(1);
 	}
 
 	//const char* 

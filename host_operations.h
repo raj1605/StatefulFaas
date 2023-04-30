@@ -37,11 +37,11 @@ own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_
 //    printf("Inside chain call %d\n", args->size);
 //    printf("%d", args->data[0].of.i32);
 //    printf("%s\n", (char *)args->data[0].of.i32);
-//    if(args->size > 0){
-//        printf("Inside if condition");
-//        printf("%d", args->data[0].of.i32);
-//        printf("%s\n", (char *)args->data[0].of.i32);
-//    }
+    if(args->size > 0){
+        printf("Inside if condition");
+        printf("%d", args->data[0].of.i32);
+        printf("%s\n", (char *)args->data[0].of.i32);
+    }
     const char *client_msg = "Sending using ZMQ";
     message_t msg(client_msg, strlen(client_msg));
     chainRequest.send(msg, zmq::send_flags::none);

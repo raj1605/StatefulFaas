@@ -14,7 +14,7 @@ static int it = 0;
 static int bt = 0;
 
 context_t context;
-
+wasm_memory_t* memory;
 //__attribute__((__export_module__("env"), __export_name__("add_one")))
 own wasm_trap_t *add_one(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* results){
     it+=459;
@@ -37,11 +37,21 @@ own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_
 //    printf("Inside chain call %d\n", args->size);
 //    printf("%d", args->data[0].of.i32);
 //    printf("%s\n", (char *)args->data[0].of.i32);
-    if(args->size > 0){
-        printf("Inside if condition");
-        printf("%d", args->data[0].of.i32);
-        printf("%s\n", (char *)args->data[0].of.i32);
+    printf("Inside import function \n %d \n", args->size);
+    printf("one more here \n");
+    //if(true || args->size > 0 || true){
+        printf("Inside if condition\n");
+       	printf("%d chumma data\n", args->data[0].of.i32);
+    int sizes = args->data[0].of.i32;
+    unsigned char buffer[sizes+1];
+    for(int r = 0;r<sizes;r++){
+	buffer[r] = wasm_memory_data(memory)[args->data[1].of.i32 + r];
     }
+    buffer[sizes] = '\0';
+    char arg_string = wasm_memory_data(memory)[args->data[1].of.i32];
+    printf("%s BUFFER", buffer);
+       //printf("%s\n", (char *)args->data[0].of.i32);
+    //}
     const char *client_msg = "Sending using ZMQ";
     message_t msg(client_msg, strlen(client_msg));
     chainRequest.send(msg, zmq::send_flags::none);

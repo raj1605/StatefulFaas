@@ -89,7 +89,7 @@ void run_function(int func_id) {
 
     // Create external print functions.
     printf("Creating callback...\n");
-    own wasm_functype_t* fail_type2 = wasm_functype_new_1_0(wasm_valtype_new_i32());
+    own wasm_functype_t* fail_type2 = wasm_functype_new_2_0(wasm_valtype_new_i32(), wasm_valtype_new_i32());
     own wasm_functype_t* fail_type =
 //wasm_functype_new_0_0(wasm_valtype_new_i32());
             wasm_functype_new_0_0();
@@ -200,7 +200,8 @@ void run_function(int func_id) {
     // ===================== //
 
     //
-    wasm_memory_t* memory = wasm_extern_as_memory(exports.data[0]);
+//    wasm_memory_t* 
+	memory = wasm_extern_as_memory(exports.data[0]);
     printf("\nprinting the exported memory %p\n", memory);
     //
 //    return;
@@ -327,6 +328,7 @@ void run_function(int func_id) {
 //        const char* test_string = "Testing wasm_ref_val";
         wasm_val_vec_t args;
         wasm_val_t get_at_args_val[1] = { WASM_I32_VAL(1024) };
+	//printf("The string here is ******** %d", args.size);
         if(func_id == 8){
             args = WASM_ARRAY_VEC(get_at_args_val);
         }
@@ -335,7 +337,7 @@ void run_function(int func_id) {
 //                {WASM_REF_VAL(test_string)};
                     WASM_EMPTY_VEC;
         }
-
+//	printf("The string here is ******** %d", args.size);
 
         wasm_val_vec_t results;
         wasm_val_t get_at_results_val[1] = { WASM_INIT_VAL };
@@ -346,7 +348,8 @@ void run_function(int func_id) {
 
         else
             results = WASM_EMPTY_VEC;
-
+	wasm_val_vec_t* chumma = &results;
+	printf("*********** %d ****** %d \n", results.size, chumma->size);
         own wasm_trap_t *trap;
         try {
             trap = wasm_func_call(func, &args, &results);

@@ -432,16 +432,5 @@ int main(){
 
         }
 
-        if(pool.get_tasks_total() == 0){
-
-            run_function(3);
-            run_function(5);
-            run_function(8);
-            run_function(5);
-            run_function(7);
-            run_function(6);
-            run_function(9);
-            run_function(10);
-        }
     }
 }

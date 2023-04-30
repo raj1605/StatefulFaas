@@ -30,7 +30,7 @@ own wasm_trap_t *add_one(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* 
 //
 //}
 
-own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* results, int test){
+own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* results){
 
     socket_t chainRequest(context, socket_type::req);
     chainRequest.connect("ipc://chainCall.ipc");

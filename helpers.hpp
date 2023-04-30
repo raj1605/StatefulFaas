@@ -7,8 +7,8 @@
 #ifndef STATEFULFAAS_HELPERS_H
 #define STATEFULFAAS_HELPERS_H
 
-vector<string> split(const string& s) {
-    vector<string> elems;
+std::vector<string> split(const string& s) {
+    std::vector<string> elems;
 
     regex re("\\s+");
 

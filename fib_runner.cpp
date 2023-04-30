@@ -350,6 +350,7 @@ void run_function(int func_id) {
         own wasm_trap_t *trap;
         try {
             trap = wasm_func_call(func, &args, &results);
+            printf("I'm here ----->\n");
         }catch(...) {
             print_wasmer_error();
         }

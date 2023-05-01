@@ -97,10 +97,10 @@ void run_function(int func_id, int arg_val) {
 //wasm_functype_new_0_0(wasm_valtype_new_i32());
             wasm_functype_new_0_0();
     own wasm_func_t* fail_func =
-            wasm_func_new_with_env(store, fail_type2, chain_call, store, NULL);
+            wasm_func_new_with_env(store, fail_type, add_one, store, NULL);
 
     own wasm_func_t* fail_func2 =
-            wasm_func_new_with_env(store, fail_type, add_one, store, NULL);
+            wasm_func_new_with_env(store, fail_type2, chain_call, store, NULL);
 
     own wasm_func_t* fail_func3 =
             wasm_func_new_with_env(store, fail_type3, get, store, NULL);
@@ -138,7 +138,7 @@ void run_function(int func_id, int arg_val) {
 //,
 
 //            wasm_func_as_extern(fail_func2),
-            wasm_func_as_extern(fail_func),
+            wasm_func_as_extern(fail_func2),
             wasm_func_as_extern(fail_func3),
 //wasi_import_obj.data[0]
     };

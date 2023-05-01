@@ -15,11 +15,7 @@ static int bt = 0;
 
 int arr[50];
 
-for(int i = 0;i<50;i++){
-    arr[i] = -1;
-    arr[0] = 1;
-    arr[1] = 1;
-}
+
 
 
 context_t context;

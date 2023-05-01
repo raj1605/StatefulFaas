@@ -414,6 +414,12 @@ void run_function(int func_id) {
 
 int main(){
 
+    for(int i = 0;i<50;i++){
+        arr[i] = -1;
+        arr[0] = 1;
+        arr[1] = 1;
+    }
+
     //Setting up socket to act as a server which serves client requests
     socket_t chainResponse(context, socket_type::rep);
     chainResponse.bind("ipc://chainCall.ipc");

@@ -247,9 +247,9 @@ void run_function(int func_id, int arg_val) {
             print_wasmer_error();
         }
 
-        if(func_id == 5 || func_id == 6|| func_id == 8 || func_id == 9){
+//        if(func_id == 5 || func_id == 6|| func_id == 8 || func_id == 9){
             printf("Value at %d\n", get_at_results_val[0].of.i64);
-        }
+
         printf("This is the actual value -> %d\n", it);
         printf("This is the 2nd actual value -> %d\n", bt);
         break;

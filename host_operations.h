@@ -42,10 +42,15 @@ own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_
 //    printf("Inside chain call %d\n", args->size);
 //    printf("%d", args->data[0].of.i32);
 //    printf("%s\n", (char *)args->data[0].of.i32);
+
+    wasm_val_vec_t actual_args;
+
     printf("Inside import function \n %d \n", args->size);
     //if(true || args->size > 0 || true){
        	printf("%d chumma data\n", args->data[0].of.i32);
-    int sizes = args->data[0].of.i32;
+    wasm_val_t val = WASM_INIT_VAL;
+    wasm_val_copy(&val, &args->data[0]);
+    int sizes = val.of.i32;
     unsigned char buffer[sizes+1];
     for(int r = 0;r<sizes;r++){
 //	buffer[r] = wasm_memory_data(memory)[args->data[1].of.i32 + r];

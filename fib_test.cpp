@@ -51,7 +51,7 @@ void print_frame(wasm_frame_t* frame) {
   );
 }
 
-int run_function(int func_id, int arg_val) {
+void run_function(int func_id, int arg_val) {
 
     // Register with ZMQ
 //    register_fun();

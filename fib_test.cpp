@@ -433,7 +433,7 @@ int main(){
     //Thread Pool from the BS_thread_pool.hpp
     BS::thread_pool pool;
 
-    std::future<void> main_future = pool.submit(run_function, 4);
+    std::future<void> main_future = pool.submit(run_function, 1);
     int ids = 2;
     while(true){
         message_t command;

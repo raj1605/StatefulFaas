@@ -15,9 +15,6 @@ static int bt = 0;
 
 int arr[50];
 
-
-
-
 context_t context;
 wasm_memory_t* memory;
 //__attribute__((__export_module__("env"), __export_name__("add_one")))

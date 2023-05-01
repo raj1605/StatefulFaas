@@ -61,7 +61,7 @@ void run_function(int func_id) {
 
     // Load binary.
     printf("Loading binary...\n");
-    FILE* file = fopen("HelloWorld.wasm", "rb");
+    FILE* file = fopen("fibonacci.wasm", "rb");
     if (!file) {
         printf("> Error loading module!\n");
 //    return 1;
@@ -89,6 +89,7 @@ void run_function(int func_id) {
 
     // Create external print functions.
     printf("Creating callback...\n");
+    own wasm_functype_t* fail_type3 = wasm_functype_new_2_0(wasm_valtype_new_i32(), wasm_valtype_new_i32());
     own wasm_functype_t* fail_type2 = wasm_functype_new_2_0(wasm_valtype_new_i32(), wasm_valtype_new_i32());
     own wasm_functype_t* fail_type =
 //wasm_functype_new_0_0(wasm_valtype_new_i32());
@@ -98,6 +99,9 @@ void run_function(int func_id) {
 
     own wasm_func_t* fail_func2 =
             wasm_func_new_with_env(store, fail_type, add_one, store, NULL);
+
+    own wasm_func_t* fail_func3 =
+            wasm_func_new_with_env(store, fail_type3, get, store, NULL);
 
     if (!fail_func) {
         printf("> Error compiling fail_func!\n");
@@ -132,7 +136,8 @@ void run_function(int func_id) {
 //,
 
             wasm_func_as_extern(fail_func2),
-            wasm_func_as_extern(fail_func)
+            wasm_func_as_extern(fail_func),
+            wasm_func_as_extern(fail_func3),
 //wasi_import_obj.data[0]
     };
     print_wasmer_error();

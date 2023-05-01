@@ -56,8 +56,10 @@ own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_
     printf("%s BUFFER", buffer);
        //printf("%s\n", (char *)args->data[0].of.i32);
     //}
+    char buf[256];
+    sprintf(buf, "%d", sizes);
     const char *client_msg = "Sending using ZMQ";
-    message_t msg(sizes, strlen(client_msg));
+    message_t msg(buf, strlen(buf));
     chainRequest.send(msg, zmq::send_flags::none);
 //    bt = 0;
     bt += 26;

@@ -21,7 +21,7 @@ int fib(int x){
 			val1 = get(x-1);
 		}
 
-        return val1
+        return val1;
 //		if(val2 == -1){
 //			const char *temp = "test";
 //			chain_call(x-2, temp);

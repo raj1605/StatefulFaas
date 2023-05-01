@@ -323,13 +323,13 @@ int main(){
         if(command.size() > 0){
 
             std::cout << "Message from the client is - " << command.to_string() << std::endl;
-            std::vector<std::string> vec = split(command.to_string());
+            std::vector<std::auto> vec = split(command.to_string());
             for(unsigned int i = 0; i < vec.size(); i++)
             {
                 std::cout << vec[i] << " " << std::endl;
             }
             zmq::message_t msg("hello world!", 12);
-            std::future<void> secondary_future = pool.submit(run_function, stoi(vec[0]));
+            std::future<void> secondary_future = pool.submit(run_function, vec[0]);
             ids++;
             std::cout << ids;
             chainResponse.send(msg, zmq::send_flags::none);

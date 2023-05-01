@@ -43,9 +43,7 @@ own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_
 //    printf("%d", args->data[0].of.i32);
 //    printf("%s\n", (char *)args->data[0].of.i32);
     printf("Inside import function \n %d \n", args->size);
-    printf("one more here \n");
     //if(true || args->size > 0 || true){
-        printf("Inside if condition\n");
        	printf("%d chumma data\n", args->data[0].of.i32);
     int sizes = args->data[0].of.i32;
     unsigned char buffer[sizes+1];

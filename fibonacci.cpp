@@ -5,11 +5,11 @@ extern "C" int get(int) __attribute__((__import_module__("env"), __import_name__
 
 extern "C"{
 
-	int* fib(int x) __attribute__((used));
-	int* fib(int x){
+	int fib(int x) __attribute__((used));
+	int fib(int x){
 		int temp = 10;
-		return &temp;
-	
+		return temp;
+
 
 	}
 

@@ -55,6 +55,7 @@ void run_function(int func_id, int arg_val) {
 //    register_fun();
 
     // Initialize.
+    std::cout << std::endl;
     printf("Initializing...\n");
     wasm_engine_t* engine = wasm_engine_new();
     wasm_store_t* store = wasm_store_new(engine);
@@ -214,7 +215,7 @@ void run_function(int func_id, int arg_val) {
     for (int i = func_id; i < exports.size; ++i) {
 
         printf("func id is == %d\n", i);
-        std::cout << std::endl;
+
         const wasm_func_t* fib_func = wasm_extern_as_func(exports.data[i]);
 
         if (fib_func == NULL) {

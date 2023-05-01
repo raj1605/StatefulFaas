@@ -5,6 +5,7 @@
 #include <zmq.hpp>
 #include <string>
 #include <chrono>
+#include <thread>
 
 #include "BS_thread_pool.hpp"
 #include "wasm.h"
@@ -50,7 +51,7 @@ void print_frame(wasm_frame_t* frame) {
   );
 }
 
-void run_function(int func_id, int arg_val) {
+int run_function(int func_id, int arg_val) {
 
     // Register with ZMQ
 //    register_fun();
@@ -334,9 +335,10 @@ int main(){
 
             std::cout << "Before submitting to thread pool the value of vec[0] is " << vec[0] << std::endl;
             std::future<void> secondary_future = pool.submit(run_function,1, stoi(vec[0]));
-            while(arr[stoi(vec[0])] == -1){
-                int mnop = 1;
-            }
+//            while(arr[stoi(vec[0])] == -1){
+//                int mnop = 1;
+//            }
+            std::this_thread::sleep_for (std::chrono::seconds(2));
             char buf[256];
             sprintf(buf, "%d", arr[stoi(vec[0])]);
 

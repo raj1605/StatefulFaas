@@ -9,7 +9,7 @@ extern "C"{
 	int fib(int x){
 		//sleep(5);
         if(x == 0 || x == 1)
-            return 1;
+            return 10;
 //		int val1 = get(x-1);
 //		int val2 = get(x-2);
 //

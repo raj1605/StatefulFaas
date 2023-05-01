@@ -51,12 +51,15 @@ own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_
     wasm_val_t val = WASM_INIT_VAL;
     wasm_val_copy(&val, &args->data[0]);
     int sizes = val.of.i32;
-    printf("Crossed this ^^^ \n");
     unsigned char buffer[sizes+1];
+
+    printf("Crossed this ^^^1 \n");
     for(int r = 0;r<sizes;r++){
 //	buffer[r] = wasm_memory_data(memory)[args->data[1].of.i32 + r];
     }
     buffer[sizes] = '\0';
+
+    printf("Crossed this ^^^2 \n");
 //    char arg_string = wasm_memory_data(memory)[args->data[1].of.i32];
     printf("%s BUFFER", buffer);
        //printf("%s\n", (char *)args->data[0].of.i32);

@@ -325,7 +325,7 @@ int main(){
         chainResponse.recv(command, recv_flags::dontwait);
         if(command.size() > 0){
 
-            start = std::chrono::system_clock::now() + std::chrono::seconds(5);
+
 
             std::cout << "Message from the client is - " << command.to_string() << std::endl;
             std::vector<std::string> vec = split(command.to_string());
@@ -338,7 +338,7 @@ int main(){
             std::future<void> secondary_future = pool.submit(run_function,1, stoi(vec[0]));
 
             chainResponse.send(msg, zmq::send_flags::none);
-            start = std::chrono::steady_clock::now();
+            start = std::chrono::system_clock::now() + std::chrono::seconds(5);
         }
 
     }

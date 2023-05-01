@@ -91,7 +91,7 @@ void run_function(int func_id, int arg_val) {
 
     // Create external print functions.
     printf("Creating callback...\n");
-    own wasm_functype_t* fail_type3 = wasm_functype_new_2_0(wasm_valtype_new_i32(), wasm_valtype_new_i32());
+    own wasm_functype_t* fail_type3 = wasm_functype_new_1_1(wasm_valtype_new_i32(), wasm_valtype_new_i32());
     own wasm_functype_t* fail_type2 = wasm_functype_new_1_1(wasm_valtype_new_i32(), wasm_valtype_new_i32());
     own wasm_functype_t* fail_type =
 //wasm_functype_new_0_0(wasm_valtype_new_i32());

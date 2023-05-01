@@ -239,7 +239,7 @@ void run_function(int func_id, int arg_val) {
         own wasm_trap_t *trap;
         try {
             trap = wasm_func_call(fib_func, &args, &results);
-            printf("I'm here ----->\n");
+            printf("I'm here -----> %d\n", arg_val);
             printf("I'm here ----->\n");
         }catch(...) {
             print_wasmer_error();

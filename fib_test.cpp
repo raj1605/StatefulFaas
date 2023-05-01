@@ -331,10 +331,16 @@ int main(){
             {
                 std::cout << vec[i] << " " << std::endl;
             }
-            zmq::message_t msg("hello world!", 12);
+
             std::cout << "Before submitting to thread pool the value of vec[0] is " << vec[0] << std::endl;
             std::future<void> secondary_future = pool.submit(run_function,1, stoi(vec[0]));
+            while(arr[stoi(vec[0])] == -1){
+                int mnop = 1;
+            }
+            char buf[256];
+            sprintf(buf, "%d", arr[stoi(vec[0])]);
 
+            zmq::message_t msg(buf, strlen(buf));
             chainResponse.send(msg, zmq::send_flags::none);
             start = std::chrono::system_clock::now() + std::chrono::seconds(5);
         }

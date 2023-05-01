@@ -57,7 +57,7 @@ void run_function(int func_id, int arg_val) {
 
     // Initialize.
     std::cout << std::endl;
-    printf("Initializing...\n");
+    printf("\nInitializing...\n");
     wasm_engine_t* engine = wasm_engine_new();
     wasm_store_t* store = wasm_store_new(engine);
 

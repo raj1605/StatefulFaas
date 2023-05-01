@@ -135,7 +135,7 @@ void run_function(int func_id) {
 //wasi_import_obj.data[0]
 //,
 
-            wasm_func_as_extern(fail_func2),
+//            wasm_func_as_extern(fail_func2),
             wasm_func_as_extern(fail_func),
             wasm_func_as_extern(fail_func3),
 //wasi_import_obj.data[0]

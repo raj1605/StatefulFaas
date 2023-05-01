@@ -13,6 +13,15 @@ using namespace zmq;
 static int it = 0;
 static int bt = 0;
 
+int[50] arr;
+
+for(int i = 0;i<50;i++){
+    arr[i] = -1;
+    arr[0] = 1;
+    arr[1] = 1;
+}
+
+
 context_t context;
 wasm_memory_t* memory;
 //__attribute__((__export_module__("env"), __export_name__("add_one")))
@@ -21,14 +30,16 @@ own wasm_trap_t *add_one(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* 
     return NULL;
 }
 
-//void register_fun(context_t context){
-//    //context_t context;
-//    //socket_t chainResponse(context, socket_type::rep);
-////    chainRequest.connect("ipc://chainCall.ipc");
-//    chainRequest = socket_t(context, socket_type::rep);
-//    chainRequest.connect("tcp://127.0.0.1:5555");
-//
-//}
+own wasm_trap_t *get(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* results){
+    int sizes = args->data[0].of.i32;
+    wasm_val_vec_t args_real;
+    wasm_val_t get_at_args_val[1] = { WASM_I32_VAL(sizes) };
+    //printf("The string here is ******** %d", args.size);
+
+    args_real = WASM_ARRAY_VEC(get_at_args_val);
+    wasm_val_copy(&results->data[0], &args_real->data[0]);
+    return NULL;
+}
 
 own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* results){
 

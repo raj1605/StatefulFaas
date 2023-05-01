@@ -317,11 +317,14 @@ int main(){
     BS::thread_pool pool;
 
     std::future<void> main_future = pool.submit(run_function, 1, 5);
-    int ids = 2;
-    while(true){
+    const std::chrono::time_point<std::chrono::system_clock> start =
+            std::chrono::system_clock::now() + std::chrono::seconds(5);
+    while(std::chrono::system_clock::now() < start){
         message_t command;
         chainResponse.recv(command, recv_flags::dontwait);
         if(command.size() > 0){
+
+            start = std::chrono::system_clock::now() + std::chrono::seconds(5);
 
             std::cout << "Message from the client is - " << command.to_string() << std::endl;
             std::vector<std::string> vec = split(command.to_string());
@@ -335,7 +338,7 @@ int main(){
             ids++;
             std::cout << ids;
             chainResponse.send(msg, zmq::send_flags::none);
-
+            start = std::chrono::steady_clock::now();
         }
 
     }

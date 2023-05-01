@@ -24,7 +24,7 @@ own wasm_trap_t *add_one(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* 
 }
 
 own wasm_trap_t *get(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* results){
-    int sizes = args->data[0].of.i32;
+    int sizes = arr[args->data[0].of.i32];
     wasm_val_vec_t args_real;
     wasm_val_t get_at_args_val[1] = { WASM_I32_VAL(sizes) };
     //printf("The string here is ******** %d", args.size);

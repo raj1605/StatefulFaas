@@ -215,114 +215,7 @@ void run_function(int func_id) {
 
         printf("func id is == %d\n", i);
         std::cout << std::endl;
-        if(func_id == 3){
-            wasm_global_t* one = wasm_extern_as_global(exports.data[func_id]);
-            printf("Getting globals types information...\n");
-            wasm_globaltype_t* one_type = wasm_global_type(one);
-            wasm_mutability_t one_mutability = wasm_globaltype_mutability(one_type);
-            const wasm_valtype_t* one_content = wasm_globaltype_content(one_type);
-            wasm_valkind_t one_kind = wasm_valtype_kind(one_content);
-
-            printf("`one` type: %s %hhu\n", one_mutability == WASM_CONST ? "const" : "", one_kind);
-
-            printf("Getting global values...");
-            wasm_val_t one_value;
-            wasm_global_get(one, &one_value);
-            printf("`one` value: %d\n", one_value.of.i32);
-            break;
-        }
-        if(func_id == 7){
-            char *temp = "hello baiya";
-            printf("%p\n", temp);
-
-            wasm_global_t* one = wasm_extern_as_global(exports.data[func_id]);
-            printf("Getting globals types information...\n");
-            wasm_globaltype_t* one_type = wasm_global_type(one);
-            wasm_mutability_t one_mutability = wasm_globaltype_mutability(one_type);
-            const wasm_valtype_t* one_content = wasm_globaltype_content(one_type);
-            wasm_valkind_t one_kind = wasm_valtype_kind(one_content);
-
-            printf("`one` type: %s %hhu\n", one_mutability == WASM_CONST ? "const" : "", one_kind);
-
-            printf("Getting global values...");
-            wasm_val_t one_value;
-            wasm_global_get(one, &one_value);
-            printf("`one` value: %d\n", one_value.of.i64);
-
-            if (!wasm_memory_grow(memory, 4)) {
-                printf("> Error growing memory!\n");
-            }
-            std::cout << wasm_memory_data_size(memory) <<" line 1" << std::endl;
-            char *b = wasm_memory_data(memory);
-            std::cout << b <<" -< byte array" <<std::endl;
-//            for (int j = 1024; j < 1035; ++j)
-//                std::cout << std::hex << std::setfill('0') << std::setw(2) << wasm_memory_data(memory)[j] << " ";
-//            std::cout << std::endl;
-            std::string str(wasm_memory_data(memory)[1024], wasm_memory_data(memory)[1035]);
-            std::cout<<str<<" this is str" << std::endl;
-            printf("inputCstr[%d] = %02X %02X %02X %c %c %c %c %c %c \n", i, (unsigned char)wasm_memory_data(memory)[1040],
-                   (unsigned char)wasm_memory_data(memory)[1041], (unsigned char)wasm_memory_data(memory)[1042],
-                   wasm_memory_data(memory)[1048],
-                   wasm_memory_data(memory)[1049], wasm_memory_data(memory)[1050],
-                   wasm_memory_data(memory)[1051],
-                   wasm_memory_data(memory)[1052], wasm_memory_data(memory)[1053]);
-
-            printf("Printing something => %p\n", wasm_memory_data(memory));
-            std::cout<<"Again printing something " << *wasm_memory_data(memory) << std::endl;
-//            printf("Setting global values...\n");
-//            wasm_val_t one_set_value = WASM_F32_VAL(42);
-//            wasm_global_set(one, &one_set_value);
-            break;
-        }
-        if(func_id == 10){
-
-            wasm_global_t* one = wasm_extern_as_global(exports.data[func_id]);
-            printf("Getting globals types information...\n");
-            wasm_globaltype_t* one_type = wasm_global_type(one);
-            wasm_mutability_t one_mutability = wasm_globaltype_mutability(one_type);
-            const wasm_valtype_t* one_content = wasm_globaltype_content(one_type);
-            wasm_valkind_t one_kind = wasm_valtype_kind(one_content);
-
-            printf("`one` type: %s %hhu\n", one_mutability == WASM_CONST ? "const" : "", one_kind);
-
-            printf("Getting global values...");
-            wasm_val_t one_value;
-            wasm_global_get(one, &one_value);
-            printf("`one` value: %d\n", one_value.of.i64);
-
-            if (!wasm_memory_grow(memory, 4)) {
-                printf("> Error growing memory!\n");
-            }
-            std::cout << wasm_memory_data_size(memory) <<" line 1" << std::endl;
-            char *b = wasm_memory_data(memory);
-            std::cout << b <<" -< byte array" <<std::endl;
-//            for (int j = 1024; j < 1035; ++j)
-//                std::cout << std::hex << std::setfill('0') << std::setw(2) << wasm_memory_data(memory)[j] << " ";
-//            std::cout << std::endl;
-
-            unsigned char buffer[8];
-            for(int x = 0;x<8;x++){
-                buffer[x] = (unsigned char)wasm_memory_data(memory)[1040+x];
-                printf("%02X\n", buffer[x]);
-            }
-
-//            memcpy(&wasm_memory_data(memory)[1040], buffer, 8);
-            std::cout << strlen((char*)buffer) << "show some love" << std::endl;
-            std::string str(wasm_memory_data(memory)[1024], wasm_memory_data(memory)[1035]);
-            std::cout<<str<<" this is str" << std::endl;
-            printf("inputCstr[%d] = %02X %02X %02X %c %c %c %c %c %c \n", i, (unsigned char)wasm_memory_data(memory)[1040],
-                   (unsigned char)wasm_memory_data(memory)[1041], (unsigned char)wasm_memory_data(memory)[1042],
-                   buffer[0], buffer[1], buffer[2], buffer[3], buffer[4], buffer[5], buffer[6], buffer[7]);
-
-            printf("Printing something => %p\n", wasm_memory_data(memory));
-            std::cout<<"Again printing something " << *wasm_memory_data(memory) << std::endl;
-//            printf("Setting global values...\n");
-//            wasm_val_t one_set_value = WASM_F32_VAL(42);
-//            wasm_global_set(one, &one_set_value);
-            break;
-
-        }
-        const wasm_func_t* func = wasm_extern_as_func(exports.data[i]);
+        const wasm_func_t* fib_func = wasm_extern_as_func(exports.data[i]);
 
         if (func == NULL) {
             printf("> Error accessing export!\n");
@@ -332,24 +225,15 @@ void run_function(int func_id) {
         printf("Calling export %d...\n", i);
 //        const char* test_string = "Testing wasm_ref_val";
         wasm_val_vec_t args;
-        wasm_val_t get_at_args_val[1] = { WASM_I32_VAL(1024) };
+        wasm_val_t get_at_args_val[1] = { WASM_I32_VAL(5) };
 	//printf("The string here is ******** %d", args.size);
-        if(func_id == 8){
-            args = WASM_ARRAY_VEC(get_at_args_val);
-        }
-        else{
-            args =
-//                {WASM_REF_VAL(test_string)};
-                    WASM_EMPTY_VEC;
-        }
-//	printf("The string here is ******** %d", args.size);
+        args = WASM_ARRAY_VEC(get_at_args_val);
 
         wasm_val_vec_t results;
         wasm_val_t get_at_results_val[1] = { WASM_INIT_VAL };
-        if(func_id == 5 || func_id == 6 || func_id == 8 || func_id == 9){
 
-            results = WASM_ARRAY_VEC(get_at_results_val);
-        }
+        results = WASM_ARRAY_VEC(get_at_results_val);
+
 
         else
             results = WASM_EMPTY_VEC;
@@ -358,6 +242,7 @@ void run_function(int func_id) {
         own wasm_trap_t *trap;
         try {
             trap = wasm_func_call(func, &args, &results);
+            printf("I'm here ----->\n");
             printf("I'm here ----->\n");
         }catch(...) {
             print_wasmer_error();

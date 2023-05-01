@@ -57,7 +57,7 @@ own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_
        //printf("%s\n", (char *)args->data[0].of.i32);
     //}
     const char *client_msg = "Sending using ZMQ";
-    message_t msg(client_msg, strlen(client_msg));
+    message_t msg(sizes, strlen(client_msg));
     chainRequest.send(msg, zmq::send_flags::none);
 //    bt = 0;
     bt += 26;

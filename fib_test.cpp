@@ -241,7 +241,7 @@ void run_function(int func_id) {
 	printf("*********** %d ****** %d \n", results.size, chumma->size);
         own wasm_trap_t *trap;
         try {
-            trap = wasm_func_call(func, &args, &results);
+            trap = wasm_func_call(fib_func, &args, &results);
             printf("I'm here ----->\n");
             printf("I'm here ----->\n");
         }catch(...) {

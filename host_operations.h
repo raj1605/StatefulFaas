@@ -62,7 +62,7 @@ own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_
     printf("Crossed this ^^^2 \n");
 //    char arg_string = wasm_memory_data(memory)[args->data[1].of.i32];
     printf("before buffer \n");
-    printf("%s BUFFER", buffer);
+    printf("%s BUFFER %d", buffer, sizes);
     printf("after buffer \n");
        //printf("%s\n", (char *)args->data[0].of.i32);
     //}

@@ -15,18 +15,19 @@ int fib(int x){
 		int val1 = get(x-1);
 		int val2 = get(x-2);
 
-		if(val1 == -1){
-			const char *temp = "test";
-			chain_call(x-1, temp);
-			val1 = get(x-1);
-		}
-		if(val2 == -1){
-			const char *temp = "test";
-			chain_call(x-2, temp);
-			val2 = get(x-2);
-		}
-
-		return (val1 + val2);
+        return val1;
+//		if(val1 == -1){
+//			const char *temp = "test";
+//			chain_call(x-1, temp);
+//			val1 = get(x-1);
+//		}
+//		if(val2 == -1){
+//			const char *temp = "test";
+//			chain_call(x-2, temp);
+//			val2 = get(x-2);
+//		}
+//
+//		return (val1 + val2);
 }
 
 }

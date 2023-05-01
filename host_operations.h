@@ -13,7 +13,7 @@ using namespace zmq;
 static int it = 0;
 static int bt = 0;
 
-int[50] arr;
+int arr[50];
 
 for(int i = 0;i<50;i++){
     arr[i] = -1;

@@ -318,7 +318,7 @@ int main(){
     BS::thread_pool pool;
 
     std::future<void> main_future = pool.submit(run_function, 1, 5);
-    const std::chrono::time_point<std::chrono::system_clock> start =
+    std::chrono::time_point<std::chrono::system_clock> start =
             std::chrono::system_clock::now() + std::chrono::seconds(5);
     while(std::chrono::system_clock::now() < start){
         message_t command;

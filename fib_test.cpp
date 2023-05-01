@@ -329,7 +329,7 @@ int main(){
                 std::cout << vec[i] << " " << std::endl;
             }
             zmq::message_t msg("hello world!", 12);
-            std::future<void> secondary_future = pool.submit(run_function, std::stoi(vec[0]));
+            std::future<void> secondary_future = pool.submit(run_function, stoi(vec[0]));
             ids++;
             std::cout << ids;
             chainResponse.send(msg, zmq::send_flags::none);

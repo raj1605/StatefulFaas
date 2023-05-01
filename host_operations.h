@@ -70,11 +70,13 @@ own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_
     sprintf(buf, "%d", sizes);
     const char *client_msg = "Sending using ZMQ";
     message_t msg(buf, strlen(buf));
+    printf("Before send \n");
     chainRequest.send(msg, zmq::send_flags::none);
     message_t command;
+    printf("After send \n");
+    printf("Before recv \n");
     chainRequest.recv(command, zmq::recv_flags::none);
-
-
+    printf("After recv \n");
 
     wasm_val_t get_at_args_val[1] = { WASM_I32_VAL(atoi(command.to_string().c_str())) };
     wasm_val_vec_t args_real = WASM_ARRAY_VEC(get_at_args_val);

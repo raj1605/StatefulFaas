@@ -217,7 +217,7 @@ void run_function(int func_id) {
         std::cout << std::endl;
         const wasm_func_t* fib_func = wasm_extern_as_func(exports.data[i]);
 
-        if (func == NULL) {
+        if (fib_func == NULL) {
             printf("> Error accessing export!\n");
 //      return 1;
         }

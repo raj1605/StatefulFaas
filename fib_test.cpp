@@ -233,10 +233,7 @@ void run_function(int func_id) {
         wasm_val_t get_at_results_val[1] = { WASM_INIT_VAL };
 
         results = WASM_ARRAY_VEC(get_at_results_val);
-
-
-        else
-            results = WASM_EMPTY_VEC;
+        
 	wasm_val_vec_t* chumma = &results;
 	printf("*********** %d ****** %d \n", results.size, chumma->size);
         own wasm_trap_t *trap;

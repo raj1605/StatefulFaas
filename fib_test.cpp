@@ -233,7 +233,7 @@ void run_function(int func_id) {
         wasm_val_t get_at_results_val[1] = { WASM_INIT_VAL };
 
         results = WASM_ARRAY_VEC(get_at_results_val);
-        
+
 	wasm_val_vec_t* chumma = &results;
 	printf("*********** %d ****** %d \n", results.size, chumma->size);
         own wasm_trap_t *trap;
@@ -329,7 +329,7 @@ int main(){
                 std::cout << vec[i] << " " << std::endl;
             }
             zmq::message_t msg("hello world!", 12);
-            std::future<void> secondary_future = pool.submit(run_function, ids);
+            std::future<void> secondary_future = pool.submit(run_function, std::stoi(vec[0]));
             ids++;
             std::cout << ids;
             chainResponse.send(msg, zmq::send_flags::none);

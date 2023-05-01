@@ -138,8 +138,8 @@ void run_function(int func_id, int arg_val) {
 //,
 
 //            wasm_func_as_extern(fail_func2),
-            wasm_func_as_extern(fail_func2),
             wasm_func_as_extern(fail_func3),
+            wasm_func_as_extern(fail_func2),
 //wasi_import_obj.data[0]
     };
     print_wasmer_error();

@@ -7,10 +7,9 @@ extern "C"{
 
 	int* fib(int x) __attribute__((used));
 	int* fib(int x){
-        if(x == 0 || x == 1){
 		int temp = 10;
 		return &temp;
-	}
+	
 
 	}
 

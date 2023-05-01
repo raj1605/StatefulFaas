@@ -49,7 +49,7 @@ void print_frame(wasm_frame_t* frame) {
   );
 }
 
-void run_function(int func_id) {
+void run_function(int func_id, int arg_val) {
 
     // Register with ZMQ
 //    register_fun();
@@ -225,7 +225,7 @@ void run_function(int func_id) {
         printf("Calling export %d...\n", i);
 //        const char* test_string = "Testing wasm_ref_val";
         wasm_val_vec_t args;
-        wasm_val_t get_at_args_val[1] = { WASM_I32_VAL(5) };
+        wasm_val_t get_at_args_val[1] = { WASM_I32_VAL(arg_val) };
 	//printf("The string here is ******** %d", args.size);
         args = WASM_ARRAY_VEC(get_at_args_val);
 
@@ -315,7 +315,7 @@ int main(){
     //Thread Pool from the BS_thread_pool.hpp
     BS::thread_pool pool;
 
-    std::future<void> main_future = pool.submit(run_function, 1);
+    std::future<void> main_future = pool.submit(run_function, 1, 5);
     int ids = 2;
     while(true){
         message_t command;
@@ -330,7 +330,7 @@ int main(){
             }
             zmq::message_t msg("hello world!", 12);
             std::cout << "Before submitting to thread pool the value of vec[0] is " << vec[0] << std::endl;
-            std::future<void> secondary_future = pool.submit(run_function, stoi(vec[0]));
+            std::future<void> secondary_future = pool.submit(run_function,1, stoi(vec[0]));
             ids++;
             std::cout << ids;
             chainResponse.send(msg, zmq::send_flags::none);

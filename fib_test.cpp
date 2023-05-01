@@ -4,6 +4,7 @@
 #include <inttypes.h>
 #include <zmq.hpp>
 #include <string>
+#include <chrono>
 
 #include "BS_thread_pool.hpp"
 #include "wasm.h"
@@ -335,8 +336,7 @@ int main(){
             zmq::message_t msg("hello world!", 12);
             std::cout << "Before submitting to thread pool the value of vec[0] is " << vec[0] << std::endl;
             std::future<void> secondary_future = pool.submit(run_function,1, stoi(vec[0]));
-            ids++;
-            std::cout << ids;
+
             chainResponse.send(msg, zmq::send_flags::none);
             start = std::chrono::steady_clock::now();
         }

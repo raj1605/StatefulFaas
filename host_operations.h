@@ -37,7 +37,7 @@ own wasm_trap_t *get(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* resu
     //printf("The string here is ******** %d", args.size);
 
     args_real = WASM_ARRAY_VEC(get_at_args_val);
-    wasm_val_copy(&results->data[0], &args_real->data[0]);
+    wasm_val_copy(&results->data[0], &args_real.data[0]);
     return NULL;
 }
 

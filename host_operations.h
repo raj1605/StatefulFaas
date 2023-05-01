@@ -48,10 +48,10 @@ own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_
     int sizes = args->data[0].of.i32;
     unsigned char buffer[sizes+1];
     for(int r = 0;r<sizes;r++){
-	buffer[r] = wasm_memory_data(memory)[args->data[1].of.i32 + r];
+//	buffer[r] = wasm_memory_data(memory)[args->data[1].of.i32 + r];
     }
     buffer[sizes] = '\0';
-    char arg_string = wasm_memory_data(memory)[args->data[1].of.i32];
+//    char arg_string = wasm_memory_data(memory)[args->data[1].of.i32];
     printf("%s BUFFER", buffer);
        //printf("%s\n", (char *)args->data[0].of.i32);
     //}

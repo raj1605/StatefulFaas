@@ -585,8 +585,13 @@ int main(){
 
     }
 
-    for(int i = 0;i<50;i++){
-        std::cout << arr[i] << std::endl;
+
+
+    if(pool.running == 0){
+        for(int i = 0;i<50;i++){
+            std::cout << arr[i] << " ";
+        }
+        std::cout << std::endl;
     }
 
 

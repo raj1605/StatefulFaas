@@ -29,13 +29,13 @@ void print_wasmer_error()
     }
 }
 
-void run_function(socket_t* chainResponse, string k,  int func_id, int arg_val) {
+void run_function(socket_t* chainResponse, string key_temp,  int func_id, int arg_val) {
 
     // Register with ZMQ
 //    register_fun();
 
     // Initialize.
-    message_t key(k, strlen(k));
+    message_t key(key_temp, strlen(key_temp));
     message_t discard("", 0);
     std::cout << std::endl;
     printf("\nInitializing...\n");
@@ -244,8 +244,8 @@ void run_function(socket_t* chainResponse, string k,  int func_id, int arg_val) 
     sprintf(buf, "%d", arr[arg_val]);
     zmq::message_t msg(buf, strlen(buf));
 //    std::cout << key->to_string() <<"-< key"<< discard->to_string() << "-< discard" << std::endl;
-    chainResponse->send(*key, zmq::send_flags::sndmore);
-    chainResponse->send(*discard, zmq::send_flags::sndmore);
+    chainResponse->send(key, zmq::send_flags::sndmore);
+    chainResponse->send(discard, zmq::send_flags::sndmore);
     chainResponse->send(msg, zmq::send_flags::none);
     //
 

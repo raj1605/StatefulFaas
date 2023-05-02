@@ -18,8 +18,16 @@ struct my_struct{
     int key;
     int value;
 };
-
-
+void print_wasmer_error()
+{
+    int error_len = wasmer_last_error_length();
+    if (error_len > 0) {
+        printf("Error len: `%d`\n", error_len);
+        char *error_str = (char *)malloc(error_len);
+        wasmer_last_error_message(error_str, error_len);
+        printf("Error str: `%s`\n", error_str);
+    }
+}
 
 void run_function(socket_t* chainResponse, zmq::message_t* key, zmq::message_t* discard, int func_id, int arg_val) {
 

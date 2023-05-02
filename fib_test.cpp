@@ -525,7 +525,8 @@ int main(){
     std::future<void> main_future = pool.submit(run_main_function, 1, 25);
     std::chrono::time_point<std::chrono::system_clock> start =
             std::chrono::system_clock::now() + std::chrono::seconds(5);
-    while(pool.get_tasks_total() != 0 || std::chrono::system_clock::now() < start){
+    while(pool.get_tasks_total() != 0){
+//    || std::chrono::system_clock::now() < start){
         message_t key;
         chainResponse.recv(key, recv_flags::dontwait);
         if(key.size() > 0){

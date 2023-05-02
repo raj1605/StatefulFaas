@@ -29,7 +29,7 @@ void print_wasmer_error()
     }
 }
 
-void run_function(socket_t* chainResponse, string *key_temp, char func_id, int arg_val) {
+void run_function(socket_t* chainResponse, std::string *key_temp, char func_id, int arg_val) {
 
     // Register with ZMQ
 //    register_fun();
@@ -540,7 +540,7 @@ int main(){
             }
 
             std::cout << "Before submitting to thread pool the value of vec[0] is " << vec[0] << std::endl;
-            string *sly = new std::string(key.to_string());
+            std::string *sly = new std::string(key.to_string());
             std::future<void> secondary_future = pool.submit(run_function, &chainResponse, sly, 1, stoi(vec[0]));
 //            while(arr[stoi(vec[0])] == -1){
 //                int mnop = 1;

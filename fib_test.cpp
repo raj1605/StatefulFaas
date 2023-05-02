@@ -29,7 +29,7 @@ void print_wasmer_error()
     }
 }
 
-void run_function(socket_t* chainResponse, message_t key,  char func_id, int arg_val) {
+void run_function(socket_t* chainResponse, message_t &key, int func_id, int arg_val) {
 
     // Register with ZMQ
 //    register_fun();

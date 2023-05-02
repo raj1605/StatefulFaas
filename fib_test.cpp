@@ -100,15 +100,6 @@ void run_function(socket_t* chainResponse, zmq::message_t* key, zmq::message_t* 
         print_wasmer_error();
 //        return 1;
     }
-    //wasm_extern_vec_t wasi_import_obj;
-
-    //bool get_imports_result = wasi_get_imports(store, wasi_env,module,&wasi_import_obj);
-
-    //if(!get_imports_result){
-    //  print_wasmer_error();
-    //printf("inside wasi_get_imports\n");
-    //cout << "get import result failed \n";
-    //}
 
 
     // Instantiate.
@@ -157,36 +148,6 @@ void run_function(socket_t* chainResponse, zmq::message_t* key, zmq::message_t* 
 
     wasm_module_delete(module);
     wasm_instance_delete(instance);
-
-    // =====================
-
-//    printf("Initializing wasm memory...\n");
-//    wasm_limits_t limits1 = {
-//            .min = 0,
-//            .max = wasm_limits_max_default,
-//    };
-//    own wasm_memorytype_t* memtype1 = wasm_memorytype_new(&limits1);
-//    own wasm_memory_t* memory = wasm_memory_new(store, memtype1);
-////    print_wasmer_error();
-////    std::cout << wasm_memory_data_size(memory) << std::endl;
-////    std::cout<<wasm_memory_data(memory)[1024];
-//    wasm_memory_pages_t new_pages1 = wasm_memory_size(memory);
-//    printf("Old memory size (pages): %d\n", new_pages1);
-//
-//    printf("Growing memory...\n");
-//    if (!wasm_memory_grow(memory, 4)) {
-//        printf("> Error growing memory!\n");
-//    }
-//    std::cout << wasm_memory_data_size(memory) <<" line 1" << std::endl;
-//    char *b = wasm_memory_data(memory);
-//    std::cout << b <<" -< byte array" <<std::endl;
-//    std::cout<<wasm_memory_data(memory)[0x1024] << " line 2" << std::endl;
-//
-//    wasm_memory_pages_t new_pages = wasm_memory_size(memory);
-//    printf("New memory size (pages): %d\n", new_pages);
-//    std::cout << "\n";
-    // ===================== //
-
     //
 //    wasm_memory_t* 
 	memory = wasm_extern_as_memory(exports.data[0]);
@@ -578,7 +539,7 @@ int main(){
 //            while(arr[stoi(vec[0])] == -1){
 //                int mnop = 1;
 //            }
-            std::this_thread::sleep_for (std::chrono::seconds(2));
+//            std::this_thread::sleep_for (std::chrono::seconds(2));
 
             start = std::chrono::system_clock::now() + std::chrono::seconds(5);
         }

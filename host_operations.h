@@ -40,9 +40,7 @@ own wasm_trap_t *put(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* resu
 
     arr[args->data[0].of.i32] = arr[args->data[1].of.i32];
     printf("/////////////////inside put ////////////////////\n");
-    for(int i = 0;i<50;i++)
-        printf("%d\n", arr[i]);
-    printf("\n");
+
     return NULL;
 }
 

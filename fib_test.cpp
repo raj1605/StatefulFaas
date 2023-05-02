@@ -29,13 +29,13 @@ void print_wasmer_error()
     }
 }
 
-void run_function(socket_t* chainResponse, message_t &key, char func_id, int arg_val) {
+void run_function(socket_t* chainResponse, string *key_temp, char func_id, int arg_val) {
 
     // Register with ZMQ
 //    register_fun();
 
     // Initialize.
-//    message_t key(*key_temp, strlen(*key_temp));
+    message_t key(*key_temp, strlen(*key_temp));
     message_t discard("", 0);
     std::cout << std::endl;
     printf("\nInitializing...\n");
@@ -533,6 +533,7 @@ int main(){
             chainResponse.recv(command);
             std::cout << "Message from the client is - " << command.to_string() <<" with key "<<key.to_string() << std::endl;
             std::vector<std::string> vec = split(command.to_string());
+            std::string *s = new std::string(key.to_string());
             for(unsigned int i = 0; i < vec.size(); i++)
             {
                 std::cout << vec[i] << " " << std::endl;

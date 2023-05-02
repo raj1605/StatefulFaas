@@ -36,6 +36,13 @@ own wasm_trap_t *get(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* resu
     return NULL;
 }
 
+own wasm_trap_t *put(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* results){
+
+    arr[args->data[0].of.i32] = arr[args->data[1].of.i32]
+
+    return NULL;
+}
+
 own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* results){
 
     socket_t chainRequest(context, socket_type::req);

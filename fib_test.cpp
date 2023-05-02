@@ -74,7 +74,7 @@ void run_function(socket_t* chainResponse, zmq::message_t* key, zmq::message_t* 
     own wasm_functype_t* fail_type2 = wasm_functype_new_2_1(wasm_valtype_new_i32(), wasm_valtype_new_i32(), wasm_valtype_new_i32());
     own wasm_functype_t* fail_type =
 //wasm_functype_new_0_0(wasm_valtype_new_i32());
-            wasm_functype_new_3_0(wasm_valtype_new_i32(), wasm_valtype_new_i32());
+            wasm_functype_new_3_0(wasm_valtype_new_i32(), wasm_valtype_new_i32(), wasm_valtype_new_i32());
 
     own wasm_func_t* fail_func =
             wasm_func_new_with_env(store, fail_type, put, store, NULL);

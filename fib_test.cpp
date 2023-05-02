@@ -250,7 +250,7 @@ void run_function(int func_id, int arg_val) {
 
 //        if(func_id == 5 || func_id == 6|| func_id == 8 || func_id == 9){
             printf("Value at %d\n", get_at_results_val[0].of.i64);
-
+//        return get_at_results_val[0].of.i64
         break;
         if (!trap) {
             printf("> Error calling function, expected trap!\n");
@@ -355,5 +355,5 @@ int main(){
         std::cout << arr[i] << std::endl;
     }
 
-    std::cout <<"final showdown " << main_future.get() << std::endl
+
 }

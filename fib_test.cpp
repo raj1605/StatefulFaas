@@ -351,7 +351,7 @@ int main(){
 
     }
 
-//    for(int i = 0;i<50;i++){
-//        std::cout << arr[i] << std::endl;
-//    }
+    for(int i = 0;i<50;i++){
+        std::cout << arr[i] << std::endl;
+    }
 }

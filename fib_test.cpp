@@ -241,7 +241,7 @@ void run_function(socket_t* chainResponse, zmq::message_t* key, zmq::message_t* 
     char buf[256];
     sprintf(buf, "%d", arr[arg_val]);
     zmq::message_t msg(buf, strlen(buf));
-    std::cout << key->to_string() <<"-< key"<< discard->to_string() << "-< discard" << std::endl;
+//    std::cout << key->to_string() <<"-< key"<< discard->to_string() << "-< discard" << std::endl;
     chainResponse->send(*key, zmq::send_flags::sndmore);
     chainResponse->send(*discard, zmq::send_flags::sndmore);
     chainResponse->send(msg, zmq::send_flags::none);
@@ -529,7 +529,7 @@ int main(){
             message_t discard, command;
             chainResponse.recv(discard);
             chainResponse.recv(command);
-            std::cout << "Message from the client is - " << command.to_string() << std::endl;
+            std::cout << "Message from the client is - " << command.to_string() <<" with key "<<key.to_string() << std::endl;
             std::vector<std::string> vec = split(command.to_string());
             for(unsigned int i = 0; i < vec.size(); i++)
             {

@@ -249,7 +249,7 @@ void run_function(int func_id, int arg_val) {
         }
 
 //        if(func_id == 5 || func_id == 6|| func_id == 8 || func_id == 9){
-            printf("Value at %d for %d\n", get_at_results_val[0].of.i64, func_id);
+            printf("Value at %d for %d\n", get_at_results_val[0].of.i64, arg_val);
 //        return get_at_results_val[0].of.i64
         break;
         if (!trap) {

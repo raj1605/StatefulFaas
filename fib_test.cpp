@@ -18,40 +18,10 @@ struct my_struct{
     int key;
     int value;
 };
-void print_wasmer_error()
-{
-    int error_len = wasmer_last_error_length();
-    if (error_len > 0) {
-        printf("Error len: `%d`\n", error_len);
-        char *error_str = (char *)malloc(error_len);
-        wasmer_last_error_message(error_str, error_len);
-        printf("Error str: `%s`\n", error_str);
-    }
-}
-
-// A function to be called from Wasm code.
-own wasm_trap_t* fail_callback(
-  void* env, const wasm_val_vec_t* args, wasm_val_vec_t* results
-) {
-  printf("Calling back...\n");
-  own wasm_name_t message;
-  wasm_name_new_from_string_nt(&message, "callback abort");
-  own wasm_trap_t* trap = wasm_trap_new((wasm_store_t*)env, &message);
-  wasm_name_delete(&message);
-  return trap;
-}
 
 
-void print_frame(wasm_frame_t* frame) {
-  printf("> %p @ 0x%zx = %" PRIu32 ".0x%zx\n",
-    wasm_frame_instance(frame),
-    wasm_frame_module_offset(frame),
-    wasm_frame_func_index(frame),
-    wasm_frame_func_offset(frame)
-  );
-}
 
-void run_function(int func_id, int arg_val) {
+void run_function(socket_t* chainResponse, zmq::message_t* key, zmq::message_t* discard, int func_id, int arg_val) {
 
     // Register with ZMQ
 //    register_fun();
@@ -297,6 +267,16 @@ void run_function(int func_id, int arg_val) {
     wasm_store_delete(store);
     wasm_engine_delete(engine);
 
+    //
+    char buf[256];
+    sprintf(buf, "%d", arr[stoi(vec[0])]);
+    std::cout << "Before submitting to thread pool the value of vec[0] is " << vec[0] << std::endl;
+    zmq::message_t msg(buf, strlen(buf));
+    chainResponse.send(key, zmq::send_flags::sndmore);
+    chainResponse.send(discard, zmq::send_flags::sndmore);
+    chainResponse.send(msg, zmq::send_flags::none);
+    //
+    
     // All done.
     printf("Done.\n");
 //  return 0;
@@ -341,13 +321,7 @@ int main(){
 //                int mnop = 1;
 //            }
             std::this_thread::sleep_for (std::chrono::seconds(2));
-            char buf[256];
-            sprintf(buf, "%d", arr[stoi(vec[0])]);
 
-            zmq::message_t msg(buf, strlen(buf));
-            chainResponse.send(key, zmq::send_flags::sndmore);
-            chainResponse.send(discard, zmq::send_flags::sndmore);
-            chainResponse.send(msg, zmq::send_flags::none);
             start = std::chrono::system_clock::now() + std::chrono::seconds(5);
         }
 

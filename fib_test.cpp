@@ -546,7 +546,7 @@ int main(){
 //            while(arr[stoi(vec[0])] == -1){
 //                int mnop = 1;
 //            }
-            std::this_thread::sleep_for (std::chrono::seconds(2));
+//            std::this_thread::sleep_for (std::chrono::seconds(2));
 
             start = std::chrono::system_clock::now() + std::chrono::seconds(5);
         }
@@ -560,6 +560,7 @@ int main(){
             std::cout << arr[i] << " ";
         }
         std::cout << std::endl;
+        return arr[6];
     }
 
 

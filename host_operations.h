@@ -38,7 +38,7 @@ own wasm_trap_t *get(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* resu
 
 own wasm_trap_t *put(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* results){
 
-    arr[args->data[0].of.i32] = arr[args->data[1].of.i32]
+    arr[args->data[0].of.i32] = arr[args->data[1].of.i32];
 
     return NULL;
 }

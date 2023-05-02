@@ -232,7 +232,7 @@ void run_function(socket_t* chainResponse, zmq::message_t* key, zmq::message_t* 
     wasm_extern_vec_delete(&exports);
 
     // Shut down.
-    printf("Shutting down...\n");
+    printf("Shutting down...%d\n", args_val);
     wasm_store_delete(store);
     wasm_engine_delete(engine);
 

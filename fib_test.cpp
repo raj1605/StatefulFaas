@@ -238,7 +238,7 @@ void run_function(socket_t* chainResponse, zmq::message_t* key, zmq::message_t* 
         printf("Printing origin...\n");
         own wasm_frame_t* frame = wasm_trap_origin(trap);
         if (frame) {
-            print_frame(frame);
+//            print_frame(frame);
             wasm_frame_delete(frame);
         } else {
             printf("> Empty origin.\n");
@@ -249,7 +249,7 @@ void run_function(socket_t* chainResponse, zmq::message_t* key, zmq::message_t* 
         wasm_trap_trace(trap, &trace);
         if (trace.size > 0) {
             for (size_t i = 0; i < trace.size; ++i) {
-                print_frame(trace.data[i]);
+//                print_frame(trace.data[i]);
             }
         } else {
             printf("> Empty trace.\n");

@@ -241,6 +241,7 @@ void run_function(socket_t* chainResponse, zmq::message_t* key, zmq::message_t* 
     char buf[256];
     sprintf(buf, "%d", arr[arg_val]);
     zmq::message_t msg(buf, strlen(buf));
+    std::cout << key->to_string() <<"-< key"<< discard->to_string() << "-< discard" << std::endl;
     chainResponse->send(*key, zmq::send_flags::sndmore);
     chainResponse->send(*discard, zmq::send_flags::sndmore);
     chainResponse->send(msg, zmq::send_flags::none);

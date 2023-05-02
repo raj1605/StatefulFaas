@@ -252,6 +252,7 @@ void run_function(socket_t* chainResponse, std::string *key_temp, char func_id, 
 
     // All done.
     printf("Done.-> %d\n", arg_val);
+    arr[arg_val] = get_at_results_val[0].of.i64;
 //  return 0;
 }
 

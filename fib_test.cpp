@@ -35,7 +35,7 @@ void run_function(socket_t* chainResponse, std::string *key_temp, char func_id, 
 //    register_fun();
 
     // Initialize.
-    message_t key(*key_temp, strlen(*key_temp));
+    message_t key(*key_temp, key_temp->length());
     message_t discard("", 0);
     std::cout << std::endl;
     printf("\nInitializing...\n");

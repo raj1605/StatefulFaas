@@ -97,7 +97,7 @@ void run_function(int func_id, int arg_val) {
     own wasm_functype_t* fail_type =
 //wasm_functype_new_0_0(wasm_valtype_new_i32());
             wasm_functype_new_2_0(wasm_valtype_new_i32(), wasm_valtype_new_i32());
-    
+
     own wasm_func_t* fail_func =
             wasm_func_new_with_env(store, fail_type, put, store, NULL);
 
@@ -353,9 +353,9 @@ int main(){
 
     }
 
-//    for(int i = 0;i<50;i++){
-//        std::cout << arr[i] << std::endl;
-//    }
+    for(int i = 0;i<50;i++){
+        std::cout << arr[i] << std::endl;
+    }
 
 
 }

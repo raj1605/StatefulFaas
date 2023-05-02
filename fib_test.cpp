@@ -309,7 +309,7 @@ int main(){
     }
 
     //Setting up socket to act as a server which serves client requests
-    socket_t chainResponse(context, socket_type::rep);
+    socket_t chainResponse(context, socket_type::router);
     chainResponse.bind("ipc://chainCall.ipc");
     chainResponse.bind("tcp://*:5555");
 
@@ -320,12 +320,12 @@ int main(){
     std::chrono::time_point<std::chrono::system_clock> start =
             std::chrono::system_clock::now() + std::chrono::seconds(5);
     while(std::chrono::system_clock::now() < start){
-        message_t command;
-        chainResponse.recv(command, recv_flags::dontwait);
-        if(command.size() > 0){
-
-
-
+        message_t key;
+        chainResponse.recv(key, recv_flags::dontwait);
+        if(key.size() > 0){
+            message_t discard, command;
+            chainResponse.recv(discard);
+            chainResponse.recv(command);
             std::cout << "Message from the client is - " << command.to_string() << std::endl;
             std::vector<std::string> vec = split(command.to_string());
             for(unsigned int i = 0; i < vec.size(); i++)
@@ -343,6 +343,8 @@ int main(){
             sprintf(buf, "%d", arr[stoi(vec[0])]);
 
             zmq::message_t msg(buf, strlen(buf));
+            chainResponse.send(key, zmq::send_flags::sndmore);
+            chainResponse.send(discard, zmq::send_flags::sndmore);
             chainResponse.send(msg, zmq::send_flags::none);
             start = std::chrono::system_clock::now() + std::chrono::seconds(5);
         }

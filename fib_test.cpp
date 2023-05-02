@@ -567,7 +567,7 @@ int main(){
             }
 
             std::cout << "Before submitting to thread pool the value of vec[0] is " << vec[0] << std::endl;
-            std::future<void> secondary_future = pool.submit(run_function,1, stoi(vec[0]), &chainResponse, &key, &discard);
+            std::future<void> secondary_future = pool.submit(run_function, &chainResponse, &key, &discard, 1, stoi(vec[0]));
 //            while(arr[stoi(vec[0])] == -1){
 //                int mnop = 1;
 //            }

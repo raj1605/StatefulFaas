@@ -246,7 +246,7 @@ void run_function(socket_t* chainResponse, zmq::message_t* key, zmq::message_t* 
     //
 
     // All done.
-    printf("Done.\n");
+    printf("Done. %d\n", arg_val);
 //  return 0;
 }
 

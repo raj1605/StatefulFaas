@@ -587,7 +587,7 @@ int main(){
 
 
 
-    if(pool.running == 0){
+    if(pool.get_tasks_total() == 0){
         for(int i = 0;i<50;i++){
             std::cout << arr[i] << " ";
         }

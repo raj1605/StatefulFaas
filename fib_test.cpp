@@ -237,6 +237,7 @@ void run_function(socket_t* chainResponse, zmq::message_t* key, zmq::message_t* 
     wasm_engine_delete(engine);
 
     //
+    std::cout<<"Sending final message for ///////////////" << args_val << std::endl;
     char buf[256];
     sprintf(buf, "%d", arr[arg_val]);
     zmq::message_t msg(buf, strlen(buf));

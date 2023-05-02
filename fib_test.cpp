@@ -243,7 +243,7 @@ void run_function(socket_t* chainResponse, const char* key_temp,  int func_id, i
     char buf[256];
     sprintf(buf, "%d", arr[arg_val]);
     zmq::message_t msg(buf, strlen(buf));
-//    std::cout << key->to_string() <<"-< key"<< discard->to_string() << "-< discard" << std::endl;
+    std::cout << key.to_string() <<"-< key"<< discard.to_string() << "-< discard" << std::endl;
     chainResponse->send(key, zmq::send_flags::sndmore);
     chainResponse->send(discard, zmq::send_flags::sndmore);
     chainResponse->send(msg, zmq::send_flags::none);

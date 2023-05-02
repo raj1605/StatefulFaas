@@ -354,4 +354,6 @@ int main(){
     for(int i = 0;i<50;i++){
         std::cout << arr[i] << std::endl;
     }
+
+    std::cout <<"final showdown " << main_future.get() << std::endl
 }

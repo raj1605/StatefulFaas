@@ -6,6 +6,7 @@
 
 #include "wasmer.h"
 #include <zmq.hpp>
+#include <unistd.h>
 #define own
 
 using namespace zmq;
@@ -48,6 +49,7 @@ own wasm_trap_t *put(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* resu
 
 own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* results){
 
+    //sleep(1);
     socket_t chainRequest(context, socket_type::req);
     chainRequest.connect("ipc://chainCall.ipc");
 //    printf("Inside chain call %d\n", args->size);

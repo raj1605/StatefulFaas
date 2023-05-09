@@ -191,7 +191,7 @@ void run_function(socket_t* chainResponse, std::string *key_temp, char func_id, 
         }catch(...) {
             print_wasmer_error();
         }
-
+	arr[arg_val] = get_at_results_val[0].of.i64;
 //        if(func_id == 5 || func_id == 6|| func_id == 8 || func_id == 9){
             printf("Value at %d for %d\n", get_at_results_val[0].of.i64, arg_val);
 //        return get_at_results_val[0].of.i64
@@ -252,8 +252,6 @@ void run_function(socket_t* chainResponse, std::string *key_temp, char func_id, 
 
     // All done.
     printf("Done.-> %d\n", arg_val);
-    arr[arg_val] = get_at_results_val[0].of.i64;
-//  return 0;
 }
 
 void run_main_function(int func_id, int arg_val) {

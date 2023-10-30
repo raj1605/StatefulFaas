@@ -127,6 +127,7 @@ own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_
 //    wasm_val_vec_t args_real = WASM_ARRAY_VEC(get_at_args_val);
 //    wasm_val_copy(&results->data[0], &args_real.data[0]);
     int intVal = fut_vec.size() - 1;
+    printf("The intVal is ==>> %d", intVal);
     wasm_val_t res[1] = { WASM_I32_VAL(intVal) };
     wasm_val_vec_t args_real;
     args_real = WASM_ARRAY_VEC(res);

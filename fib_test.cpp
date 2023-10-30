@@ -290,7 +290,8 @@ void run_main_function(int func_id, int arg_val) {
     // Create external print functions.
     printf("Creating callback...\n");
     own wasm_functype_t* get_func_type = wasm_functype_new_1_1(wasm_valtype_new_i32(), wasm_valtype_new_i32());
-    own wasm_functype_t* chain_call_func_type = wasm_functype_new_2_1(wasm_valtype_new_i32(), wasm_valtype_new_i32());
+    own wasm_functype_t* chain_call_func_type = wasm_functype_new_2_1(wasm_valtype_new_i32(), wasm_valtype_new_i32(),
+                                                                      wasm_valtype_new_i32());
     own wasm_functype_t* put_func_type =
 //wasm_functype_new_0_0(wasm_valtype_new_i32());
             wasm_functype_new_3_0(wasm_valtype_new_i32(), wasm_valtype_new_i32(), wasm_valtype_new_i32());

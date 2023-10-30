@@ -88,7 +88,7 @@ own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_
     printf("\nInside chain call import function, with args size =  %d \n", args->size);
     //if(true || args->size > 0 || true){
        	printf("%d chumma data\n", args->data[0].of.i32);
-    wasm_val_t val = { WASM_I32_VAL(sizes) };
+    wasm_val_t val = WASM_INIT_VAL;
     wasm_val_copy(&val, &args->data[0]);
     int sizes = val.of.i32;
     unsigned char buffer[sizes+1];

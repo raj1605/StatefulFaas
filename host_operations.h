@@ -7,6 +7,10 @@
 #include "wasmer.h"
 #include <zmq.hpp>
 #include <unistd.h>
+#include <future>
+#include <thread>
+#include <vector>
+
 #define own
 
 using namespace zmq;
@@ -18,6 +22,29 @@ int arr[50];
 
 context_t context;
 wasm_memory_t* memory;
+std::vector<std::future<int>> fut_vec;
+std::vector<std::vector<std::future<int>>> global_vec;
+
+void receive_branch(std::promise<int> prom, socket_t chainRequest){
+    message_t command;
+    chainRequest.recv(command, zmq::recv_flags::none);
+    printf("After recv %s for\n", command.to_string().c_str());
+
+    wasm_val_t get_at_args_val[1] = { WASM_I32_VAL(atoi(command.to_string().c_str())) };
+    wasm_val_vec_t args_real = WASM_ARRAY_VEC(get_at_args_val);
+    //wasm_val_copy(&results->data[0], &args_real.data[0]);
+    prom.set_value(100);
+}
+
+own wasm_trap_t *use_future(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* results){
+    printf("Inside use future for args = %d %d\n", args->data[0].of.i32, fut_vec.size());
+    int index = args->data[0].of.i32;
+    fut_vec[index].wait_for(std::chrono::seconds(5));
+    printf("Enough of waiting from index = %d\n", index);
+
+    return NULL;
+}
+
 //__attribute__((__export_module__("env"), __export_name__("add_one")))
 own wasm_trap_t *add_one(void* env, const wasm_val_vec_t* args, wasm_val_vec_t* results){
     it+=459;
@@ -66,13 +93,11 @@ own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_
     int sizes = val.of.i32;
     unsigned char buffer[sizes+1];
 
-    printf("Crossed this ^^^1 \n");
     for(int r = 0;r<sizes;r++){
 //	buffer[r] = wasm_memory_data(memory)[args->data[1].of.i32 + r];
     }
     buffer[sizes] = '\0';
 
-    printf("Crossed this ^^^2 \n");
 //    char arg_string = wasm_memory_data(memory)[args->data[1].of.i32];
     printf("before buffer \n");
     printf("%s BUFFER %d", buffer, sizes);
@@ -88,12 +113,19 @@ own wasm_trap_t *chain_call(void* env, const wasm_val_vec_t* args, wasm_val_vec_
     message_t command;
     printf("After send \n");
     printf("Before recv \n");
-    chainRequest.recv(command, zmq::recv_flags::none);
-    printf("After recv %s for %d\n", command.to_string().c_str(), sizes);
 
-    wasm_val_t get_at_args_val[1] = { WASM_I32_VAL(atoi(command.to_string().c_str())) };
-    wasm_val_vec_t args_real = WASM_ARRAY_VEC(get_at_args_val);
-    wasm_val_copy(&results->data[0], &args_real.data[0]);
+    std::promise<int> prom;
+    std::future<int> temp_future =  prom.get_future();
+    fut_vec.push_back(std::move(temp_future));
+
+    std::thread th1(receive_branch, std::move(prom), std::move(chainRequest));
+    th1.detach();
+//    chainRequest.recv(command, zmq::recv_flags::none);
+//    printf("After recv %s for %d\n", command.to_string().c_str(), sizes);
+
+//    wasm_val_t get_at_args_val[1] = { WASM_I32_VAL(atoi(command.to_string().c_str())) };
+//    wasm_val_vec_t args_real = WASM_ARRAY_VEC(get_at_args_val);
+//    wasm_val_copy(&results->data[0], &args_real.data[0]);
     return NULL;
 }
 

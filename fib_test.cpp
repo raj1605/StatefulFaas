@@ -75,7 +75,8 @@ void run_function(socket_t* chainResponse, std::string *key_temp, char func_id, 
     printf("Creating callback...\n");
     own wasm_functype_t* future_func_type = wasm_functype_new_1_0(wasm_valtype_new_i32());
     own wasm_functype_t* get_func_type = wasm_functype_new_1_1(wasm_valtype_new_i32(), wasm_valtype_new_i32());
-    own wasm_functype_t* chain_func_type = wasm_functype_new_2_0(wasm_valtype_new_i32(), wasm_valtype_new_i32());
+    own wasm_functype_t* chain_func_type = wasm_functype_new_2_1(wasm_valtype_new_i32(), wasm_valtype_new_i32(),
+                                                                 wasm_valtype_new_i32());
     own wasm_functype_t* put_func_type =
 //wasm_functype_new_0_0(wasm_valtype_new_i32());
             wasm_functype_new_3_0(wasm_valtype_new_i32(), wasm_valtype_new_i32(), wasm_valtype_new_i32());

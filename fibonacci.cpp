@@ -13,8 +13,7 @@ int fib(int x){
 		int val1, val2;
 		
 			const char *temp = "test";
-			//int temp_2 = 
-			chain_call(x-1, temp);
+            int id = chain_call(x-1, temp);
 			//val1 = temp_2;
 //get(x-1);
 		
@@ -29,21 +28,7 @@ int fib(int x){
 			//use_future(2*(total-x));
 			//use_future((2*(total-x))+1);
 
-			if(x == 6){
-				use_future(0);
-				//use_future(1);
-			}else if(x == 5){
-				use_future(1);
-				//use_future(3);
-			}else if(x == 4){
-				use_future(2);
-				//use_future(5);
-			}else if(x == 3){
-				use_future(3);
-				//use_future(7);
-			}else if(x == 2){
-				use_future(4);
-			}
+			use_future(id);
 			
 		
 			val1 = get(x-1);

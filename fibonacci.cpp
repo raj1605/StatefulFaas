@@ -1,8 +1,4 @@
-//#include <unistd.h>
-extern "C" void add_one() __attribute__(( __import_module__("env"),__import_name__("add_one")));
-extern "C" void chain_call(int, const char*) __attribute__((__import_module__("env"), __import_name__("chain_call")));
-extern "C" int get(int) __attribute__((__import_module__("env"), __import_name__("get")));
-
+#include "interaction_core.h"
 extern "C"{
 
 int fib(int x) __attribute__((used));
@@ -12,23 +8,53 @@ int fib(int x){
             return 1;
         }
 
-		int val1 = get(x-1);
-		int val2 = get(x-2);
-
-		if(val1 == -1){
+//		int val1 = get(x-1);
+//		int val2 = get(x-2);
+		int val1, val2;
+		
 			const char *temp = "test";
+			//int temp_2 = 
 			chain_call(x-1, temp);
-			val1 = get(x-1);
-		}
+			//val1 = temp_2;
+//get(x-1);
+		
+	
+//		put(x-1, val1, x);
+        //return val1;
+		
+			const char *temp1 = "test";
+			//int temp_2 = 
+			//chain_call(x-2, temp1);
+			//int total = 5;
+			//use_future(2*(total-x));
+			//use_future((2*(total-x))+1);
 
-        return val1;
-//		if(val2 == -1){
-//			const char *temp = "test";
-//			chain_call(x-2, temp);
-//			val2 = get(x-2);
-//		}
-//
-//		return (val1 + val2);
+			if(x == 6){
+				use_future(0);
+				//use_future(1);
+			}else if(x == 5){
+				use_future(1);
+				//use_future(3);
+			}else if(x == 4){
+				use_future(2);
+				//use_future(5);
+			}else if(x == 3){
+				use_future(3);
+				//use_future(7);
+			}else if(x == 2){
+				use_future(4);
+			}
+			
+		
+			val1 = get(x-1);
+			val2 = get(x-2);
+//get(x-2);
+		
+		
+//		put(x-2, val2, x);
+//		put(x, val2 + val1, x);
+
+		return (val1 + val2);
 }
 
 }

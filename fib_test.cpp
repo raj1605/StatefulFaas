@@ -39,7 +39,7 @@ void run_function(socket_t* chainResponse, std::string *key_temp, char func_id, 
 //                  , (int)key_temp->length());
     message_t discard("", 0);
     std::cout << std::endl;
-    printf("\nInitializing...\n");
+    printf("\nInitializing...%d\n", arg_val);
     wasm_engine_t* engine = wasm_engine_new();
     wasm_store_t* store = wasm_store_new(engine);
 
@@ -73,62 +73,55 @@ void run_function(socket_t* chainResponse, std::string *key_temp, char func_id, 
 
     // Create external print functions.
     printf("Creating callback...\n");
-    own wasm_functype_t* fail_type3 = wasm_functype_new_1_1(wasm_valtype_new_i32(), wasm_valtype_new_i32());
-    own wasm_functype_t* fail_type2 = wasm_functype_new_2_1(wasm_valtype_new_i32(), wasm_valtype_new_i32(), wasm_valtype_new_i32());
-    own wasm_functype_t* fail_type =
+    own wasm_functype_t* future_func_type = wasm_functype_new_1_0(wasm_valtype_new_i32());
+    own wasm_functype_t* get_func_type = wasm_functype_new_1_1(wasm_valtype_new_i32(), wasm_valtype_new_i32());
+    own wasm_functype_t* chain_func_type = wasm_functype_new_2_0(wasm_valtype_new_i32(), wasm_valtype_new_i32());
+    own wasm_functype_t* put_func_type =
 //wasm_functype_new_0_0(wasm_valtype_new_i32());
             wasm_functype_new_3_0(wasm_valtype_new_i32(), wasm_valtype_new_i32(), wasm_valtype_new_i32());
 
-    own wasm_func_t* fail_func =
-            wasm_func_new_with_env(store, fail_type, put, store, NULL);
+    own wasm_func_t* put_func =
+            wasm_func_new_with_env(store, put_func_type, put, store, NULL);
+    own wasm_func_t* chain_func =
+            wasm_func_new_with_env(store, chain_func_type, chain_call, store, NULL);
+    own wasm_func_t* get_func =
+            wasm_func_new_with_env(store, get_func_type, get, store, NULL);
+    own wasm_func_t* future_func =
+            wasm_func_new_with_env(store, future_func_type, use_future, store, NULL);
 
-    own wasm_func_t* fail_func2 =
-            wasm_func_new_with_env(store, fail_type2, chain_call, store, NULL);
-
-    own wasm_func_t* fail_func3 =
-            wasm_func_new_with_env(store, fail_type3, get, store, NULL);
-
-    if (!fail_func) {
-        printf("> Error compiling fail_func!\n");
-//    return 1;
-    }
-
-    wasm_functype_delete(fail_type);
-
+//    printf("%p %p %p %p +++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n", put_func, chain_func, get_func, future_func);
     wasi_config_t* config = wasi_config_new("example_program");
     wasi_config_capture_stdout(config);
     wasi_env_t* wasi_env = wasi_env_new(store, config);
     if (!wasi_env) {
         printf("> Error building WASI env!\n");
         print_wasmer_error();
-//        return 1;
     }
-
-
     // Instantiate.
     printf("Instantiating module...\n");
     wasm_extern_t* externs[] = {
 //wasi_import_obj.data[0]
-//,
-
-//            wasm_func_as_extern(fail_func2),
-            wasm_func_as_extern(fail_func3),
-            wasm_func_as_extern(fail_func2),
-            wasm_func_as_extern(fail_func),
+//	wasm_func_as_extern(get_func),
+	wasm_func_as_extern(chain_func),
+	wasm_func_as_extern(future_func),
+	wasm_func_as_extern(get_func)
 //wasi_import_obj.data[0]
     };
     print_wasmer_error();
-    printf("before imports\n");
+    printf("before imports and imports size is \n");
     wasm_extern_vec_t imports = WASM_ARRAY_VEC(externs);
     own wasm_instance_t* instance =
             wasm_instance_new(store, module, &imports, NULL);
+
     if (!instance) {
         print_wasmer_error();
         printf("> Error instantiating module!\n");
 //    return 1;
     }
 
-    wasm_func_delete(fail_func);
+    //wasm_func_delete(put_func);
+    //wasm_func_delete(chain_func);
+    //wasm_func_delete(future_func);
 
     // Extract export.
     wasm_exporttype_vec_t export_type;
@@ -295,27 +288,26 @@ void run_main_function(int func_id, int arg_val) {
 
     // Create external print functions.
     printf("Creating callback...\n");
-    own wasm_functype_t* fail_type3 = wasm_functype_new_1_1(wasm_valtype_new_i32(), wasm_valtype_new_i32());
-    own wasm_functype_t* fail_type2 = wasm_functype_new_2_1(wasm_valtype_new_i32(), wasm_valtype_new_i32(), wasm_valtype_new_i32());
-    own wasm_functype_t* fail_type =
+    own wasm_functype_t* get_func_type = wasm_functype_new_1_1(wasm_valtype_new_i32(), wasm_valtype_new_i32());
+    own wasm_functype_t* chain_call_func_type = wasm_functype_new_2_0(wasm_valtype_new_i32(), wasm_valtype_new_i32());
+    own wasm_functype_t* put_func_type =
 //wasm_functype_new_0_0(wasm_valtype_new_i32());
             wasm_functype_new_3_0(wasm_valtype_new_i32(), wasm_valtype_new_i32(), wasm_valtype_new_i32());
+     own wasm_functype_t* use_future_func_type = wasm_functype_new_1_0(wasm_valtype_new_i32());
 
-    own wasm_func_t* fail_func =
-            wasm_func_new_with_env(store, fail_type, put, store, NULL);
+    own wasm_func_t* put_func =
+            wasm_func_new_with_env(store, put_func_type, put, store, NULL);
 
-    own wasm_func_t* fail_func2 =
-            wasm_func_new_with_env(store, fail_type2, chain_call, store, NULL);
+    own wasm_func_t* chain_call_func =
+            wasm_func_new_with_env(store, chain_call_func_type, chain_call, store, NULL);
 
-    own wasm_func_t* fail_func3 =
-            wasm_func_new_with_env(store, fail_type3, get, store, NULL);
+    own wasm_func_t* get_func =
+            wasm_func_new_with_env(store, get_func_type, get, store, NULL);
+    
+    own wasm_func_t* use_future_func =
+            wasm_func_new_with_env(store, use_future_func_type, use_future, store, NULL);
 
-    if (!fail_func) {
-        printf("> Error compiling fail_func!\n");
-//    return 1;
-    }
-
-    wasm_functype_delete(fail_type);
+    //wasm_functype_delete(fail_type);
 
     wasi_config_t* config = wasi_config_new("example_program");
     wasi_config_capture_stdout(config);
@@ -343,9 +335,9 @@ void run_main_function(int func_id, int arg_val) {
 //,
 
 //            wasm_func_as_extern(fail_func2),
-            wasm_func_as_extern(fail_func3),
-            wasm_func_as_extern(fail_func2),
-            wasm_func_as_extern(fail_func),
+            wasm_func_as_extern(chain_call_func),
+            wasm_func_as_extern(use_future_func),
+            wasm_func_as_extern(get_func),
 //wasi_import_obj.data[0]
     };
     print_wasmer_error();
@@ -359,7 +351,9 @@ void run_main_function(int func_id, int arg_val) {
 //    return 1;
     }
 
-    wasm_func_delete(fail_func);
+    wasm_func_delete(chain_call_func);
+    wasm_func_delete(get_func);
+    wasm_func_delete(use_future_func);
 
     // Extract export.
     wasm_exporttype_vec_t export_type;
@@ -383,37 +377,6 @@ void run_main_function(int func_id, int arg_val) {
     wasm_module_delete(module);
     wasm_instance_delete(instance);
 
-    // =====================
-
-//    printf("Initializing wasm memory...\n");
-//    wasm_limits_t limits1 = {
-//            .min = 0,
-//            .max = wasm_limits_max_default,
-//    };
-//    own wasm_memorytype_t* memtype1 = wasm_memorytype_new(&limits1);
-//    own wasm_memory_t* memory = wasm_memory_new(store, memtype1);
-////    print_wasmer_error();
-////    std::cout << wasm_memory_data_size(memory) << std::endl;
-////    std::cout<<wasm_memory_data(memory)[1024];
-//    wasm_memory_pages_t new_pages1 = wasm_memory_size(memory);
-//    printf("Old memory size (pages): %d\n", new_pages1);
-//
-//    printf("Growing memory...\n");
-//    if (!wasm_memory_grow(memory, 4)) {
-//        printf("> Error growing memory!\n");
-//    }
-//    std::cout << wasm_memory_data_size(memory) <<" line 1" << std::endl;
-//    char *b = wasm_memory_data(memory);
-//    std::cout << b <<" -< byte array" <<std::endl;
-//    std::cout<<wasm_memory_data(memory)[0x1024] << " line 2" << std::endl;
-//
-//    wasm_memory_pages_t new_pages = wasm_memory_size(memory);
-//    printf("New memory size (pages): %d\n", new_pages);
-//    std::cout << "\n";
-    // ===================== //
-
-    //
-//    wasm_memory_t*
     memory = wasm_extern_as_memory(exports.data[0]);
     printf("\nprinting the exported memory %p\n", memory);
     //
@@ -456,6 +419,7 @@ void run_main_function(int func_id, int arg_val) {
 //        if(func_id == 5 || func_id == 6|| func_id == 8 || func_id == 9){
         printf("Value at %d for %d\n", get_at_results_val[0].of.i64, arg_val);
 //        return get_at_results_val[0].of.i64
+	arr[arg_val] = get_at_results_val[0].of.i64;
         break;
         if (!trap) {
             printf("> Error calling function, expected trap!\n");
@@ -521,7 +485,7 @@ int main(){
     //Thread Pool from the BS_thread_pool.hpp
     BS::thread_pool pool;
 
-    std::future<void> main_future = pool.submit(run_main_function, 1, 25);
+    std::future<void> main_future = pool.submit(run_main_function, 1, 6);
     std::chrono::time_point<std::chrono::system_clock> start =
             std::chrono::system_clock::now() + std::chrono::seconds(5);
     while(pool.get_tasks_total() != 0){
